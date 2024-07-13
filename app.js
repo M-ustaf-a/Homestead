@@ -9,9 +9,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const WrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const listingSchema = require("./schema.js");
-const Review = require( "./models/review.js" );
-
+const { listingSchema, reviewSchema } = require("./schema.js");
+const Review = require("./models/review.js");
 
 const MONG_URL = "mongodb://127.0.0.1:27017/PROJECT";
 
@@ -33,9 +32,19 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
 const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
+  const { error } = listingSchema.validate(req.body);
   if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
+    const errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
+  if (error) {
+    const errMsg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(400, errMsg);
   } else {
     next();
@@ -62,41 +71,41 @@ app.post("/listings", validateListing, WrapAsync(async (req, res) => {
 
 //edit route
 app.get("/listings/:id/edit", WrapAsync(async (req, res) => {
-  let { id } = req.params;
+  const { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/edit.ejs", { listing });
 }));
 
 //update route
 app.put("/listings/:id", validateListing, WrapAsync(async (req, res) => {
-  let { id } = req.params;
+  const { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   res.redirect(`/listings/${id}`);
 }));
 
 //delete route
 app.delete("/listings/:id", WrapAsync(async (req, res) => {
-  let { id } = req.params;
+  const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
 }));
 
 // reviews
 // Post route
-
-app.post("/listings/:id/reviews", async(req,res)=>{
-  let listing = await Listing.findById(req.params.id);
-  console.log(listing)
-  let newReview = new Review(req.body.review);
+app.post("/listings/:id/reviews", validateReview, WrapAsync(async (req, res) => {
+  const listing = await Listing.findById(req.params.id);
+  console.log(listing);
+  const newReview = new Review(req.body.review);
   listing.reviews.push(newReview);
 
   await newReview.save();
   await listing.save();
-  res.redirect(`/listings/${listing._id}`)
-})
+  res.redirect(`/listings/${listing._id}`);
+}));
+
 //show route
 app.get("/listings/:id", WrapAsync(async (req, res) => {
-  let { id } = req.params;
+  const { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/show.ejs", { listing });
 }));
@@ -106,7 +115,7 @@ app.all("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  let { statusCode = 404, message = "Something went wrong" } = err;
+  const { statusCode = 404, message = "Something went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
 });
 
