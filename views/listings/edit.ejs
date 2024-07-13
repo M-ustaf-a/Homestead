@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row">
+  <div class="col-8 offset-2">
+    <div class="m-4">
+    <h1>Edit the Listing</h1>
+    <form method="post" action="/listings/<%=listing._id%>?_method=put">
+        <div class="row"></div>
+        <div>
+            <label for="title" class="form-lagel">Title</label>
+            <input name="listing[title]" type="text" placeholder="enter the title" class="form-control" value="<%=listing.title %>"><br><br>
+        </div>
+        <div>
+            <label for="description" class="form-lagel">Description</label>
+            <textarea name="listing[description]" id="" placeholder="enter the description" class="form-control"><%=listing.description %></textarea><br><br>
+        </div>
+        <div>
+            <label for="price" class="form-lagel" >Price</label>
+            <input name="listing[price]" type="number" placeholder="enter the price" class="form-control" value="<%=listing.price %>"><br><br>
+        </div>
+        <div>
+            <label for="image" class="form-lagel" >Image</label>
+            <input name="listing[image]" type="text" placeholder="Add Image" class="form-control" value="<%=listing.image %>"><br><br>
+        </div>
+        
+        <div class="row">
+        <div class="col-md-4">
+            <label for="location" class="form-lagel" value="<%=listing.location %>">Location</label>
+            <input name="listing[location]" type="text" placeholder="enter the location" class="form-control"><br><br>
+        </div>
+        <div class="col-md-8">
+            <label for="country" class="form-lagel">Country</label>
+            <input name="listing[country]" type="text" placeholder="enter the country" class="form-control" value="<%=listing.country %>"><br><br>
+        </div>
+    </div>
+        <button class="btn btn-dark edit-btn">submit</button>
+    </form>
+    </div>
+    </div>
+</div>
+
