@@ -1,15 +1,74 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#"><i class="fa-brands fa-slack"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-          <a class="nav-link" href="/listings">All Listings</a>
-          <a class="nav-link" href="/listings/new">Add new Listing</a>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><img src="https://cdn-icons-png.flaticon.com/128/7006/7006898.png" alt="" style="height: 60px; width: 65px; margin-left: 60px;"></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/listings">All Listings</a> -->
+        <!-- <a class="nav-link" href="/listings/new">Add new Listing</a> -->
+      </div>
+     
+      <div class="navbar-nav ms-auto">
+        <%if(currUser){%> 
+          <a href="/listings/new">
+            <button class="btn btn-light" style="margin-right: 25px; border-radius: 25px;">Create</button>
+          </a>
+        <%}%>
+        <% if (!currUser) { %>
+        <!-- <a class="nav-link" href="/signup">Signup</a>
+        <a class="nav-link" href="/login">Login</a> -->
+        <div class="btn-group">
+          <a href="/login"><button class="btn btn-light border" style=" border-radius: 25px; margin-right: 150px;"> <img
+            src="https://cdn-icons-png.flaticon.com/128/3871/3871011.png"
+            alt=""
+            style="height: 22px; width: 22px;"
+          /><span style="padding: 7px;">Login</span></button></a>
+          
         </div>
+        <% } else { %>
+        <div class="btn-group">
+          <button
+            type="button"
+            class="border btn btn-light"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="border-radius: 25px; padding: 5px; margin-right: 150px "
+          >
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/5264/5264565.png"
+              alt=""
+              style="height: 25px; width: 25px"
+            />
+          </button>
+          <ul class="dropdown-menu">
+            <!-- <li><a class="dropdown-item font-weight-normal" href="/listings/profile">Profile</a></li> -->
+             
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/3871/3871011.png"
+              alt=""
+              style="height: 25px; width: 25px; margin-bottom: 5px; margin-left: 5px;"
+            />
+            <div style="min-height:px;">
+              <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                <div class="card card-body" style="width: 300px;">
+                 <button class="border"><%=currUser.username[0].toUpperCase%></button>
+                </div>
+              </div>
+            </div>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item " href="/logout">logout</a></li>
+          </ul>
+        </div>
+        <% } %>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

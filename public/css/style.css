@@ -98,3 +98,7 @@ body{
     background-color: #483bfb !important;
     border: none !important;
 }
+.logout-link{
+    border: #222222 !important;
+    border-radius: 25px !important;
+}

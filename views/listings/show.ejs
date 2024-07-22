@@ -1,122 +1,20 @@
 <% layout("/layouts/boilerplate") %>
-<!-- <div class="row mt-3">
-    <div class="col-8 offset-3">
-        <h3><%=listing.title%></h3>
-    </div>
-    <div class="card col-6 offset-3 show-card listing-card">
-        <img src="<%=listing.image %>" class="card-img-top" alt="listing_image" style="height: 30vh;">
-        <div class="card-body">
-          <p class="card-text">
-            <%=listing.description %>
-              <li> &#8377;<%=listing.price.toLocaleString("en-IN") %>/night</li>
-              <li><%=listing.location %></li>
-              <li><%=listing.country %></li>
-          </p>
-          
-        </div>
-        <div class="row">
-            <div class="col-2">
-
-                <form action="/listings/<%=listing._id%>/edit" method="get">
-                    <button class="btn btn-dark edit-btn">Edit</button>
-                </form>
-            </div>
-            <br>
-            <div class="col">
-
-                <form action="/listings/<%=listing._id%>?_method=DELETE" method="POST">
-                    <button class="btn btn-dark del-btn">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- show.ejs -->
-<!-- <div class="row mt-3">
-    <div class="col-8 offset-3">
-        <h3><%= listing.title %></h3>
-    </div>
-    <div class="card col-6 offset-3 show-card listing-card">
-        <img src="<%= listing.image %>" class="card-img-top" alt="listing_image" style="height: 30vh;">
-        <div class="card-body">
-            <p class="card-text">
-                <%= listing.description %>
-                <li>&#8377;<%= listing.price.toLocaleString("en-IN") %>/night</li>
-                <li><%= listing.location %></li>
-                <li><%= listing.country %></li>
-            </p>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <form action="/listings/<%= listing._id %>/edit" method="get">
-                    <button class="btn btn-dark edit-btn">Edit</button>
-                </form>
-            </div>
-            <br>
-            <div class="col">
-                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-dark del-btn">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="col-8 offset-3">
-   <hr>
-   <h4>Leave a review</h4>
-   <form action="/listings/<%=listing._id%>/reviews" method="post" novalidate class="needs-validation">
-    <div class="mb-3 mt-3">
-        <label for="rating" class="form-label">Rating</label>
-        <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range"/>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="comment" class="form-label">Comments</label>
-        <textarea name="review[comment]" id="commonet" cols="10" rows="5" class="form-control" required></textarea>
-        <div class="invalid-feedback">Please add some comments for review</div>
-    </div>
-    <div class="mb-3 mt-3">
-        <button class="btn btn-outline-dark">Submit</button>
-    </div>
-</form>
-    <hr>
-
-    <p><b>All Reviews</b></p>
-    <div class="row">
-
-        <% for(review of listing.reviews){ %>
-            <div class="card col-5 ms-3 mb-3">
-                <div class="card-body listing-card p-3">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text"><%=review.comment %></p>
-                    <p class="card-text"><%=review.rating %>stars</p>
-                    <form action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=delete" method="post">
-                        <button class="btn btn-dark">Delete</button>
-                    </form>
-                </div>
-            </div>
-        <% } %>
-    </div>
-</div>
- -->
 
  <!-- show.ejs -->
 <div class="row mt-3">
-    <div class="col-8 offset-3">
+    <div class="col-8 offset-4">
         <h3><%= listing.title %></h3>
     </div>
-    <div class="card col-6 offset-3 show-card listing-card">
-        <img src="<%= listing.image %>" class="card-img-top" alt="listing_image" style="height: 30vh;">
+    <div class="card col-6 offset-2 show-card listing-card" style="width: 130vh; ">
+        <img src="<%= listing.image %>" class="card-img-top" alt="listing_image" style="height: 60vh;">
         <div class="card-body">
-            <p class="card-text">
-                <%= listing.description %>
-                <li>&#8377;<%= listing.price.toLocaleString("en-IN") %>/night</li>
-                <li><%= listing.location %></li>
-                <li><%= listing.country %></li>
-            </p>
+            <p class="card-text"><b>Owned By: </b><%=listing.owner.username%></p>
+            <p class="card-text"><%= listing.description %></p>
+            <p class="card-text"><li>&#8377;<%= listing.price.toLocaleString("en-IN") %>/night</li></p>
+            <p class="card-text"><li><%= listing.location %></li></p>
+            <p class="card-text"><li><%= listing.country %></li></p>
         </div>
+         <%if(currUser && currUser._id.equals(listing.owner._id)){%>
         <div class="row">
             <div class="col-2">
                 <form action="/listings/<%= listing._id %>/edit" method="get">
@@ -130,12 +28,13 @@
                 </form>
             </div>
         </div>
+        <%}%>
     </div>
 </div>
-
-<div class="col-8 offset-3">
-    <hr>
+<hr>
+<div class="col-5 offset-2">
     <h4>Leave a review</h4>
+    <%if(currUser){%>
     <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
         <div class="mb-3 mt-3">
             <label for="rating" class="form-label">Rating</label>
@@ -143,28 +42,31 @@
         </div>
         <div class="mb-3 mt-3">
             <label for="comment" class="form-label">Comments</label>
-            <textarea name="review[comment]" id="commonet" cols="10" rows="5" class="form-control" required></textarea>
+            <textarea name="review[comment]" id="comment" cols="10" rows="" class="form-control" required></textarea>
             <div class="invalid-feedback">Please add some comments for review</div>
         </div>
         <div class="mb-3 mt-3">
             <button class="btn btn-outline-dark">Submit</button>
         </div>
     </form>
-    <hr>
-
+    <%}%>
+<hr
     <p><b>All Reviews</b></p>
     <div class="row">
         <% for(review of listing.reviews) { %>
             <div class="card col-5 ms-3 mb-3">
                 <div class="card-body listing-card p-3">
-                    <h5 class="card-title">Jane Doe</h5>
+                    <h5 class="card-title"><%=review.author.username%></h5>
                     <p class="card-text"><%= review.comment %></p>
                     <p class="card-text"><%= review.rating %> stars</p>
+                    <%if(currUser && currUser._id.equals(review.author._id)){%>
                     <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=delete" method="post">
                         <button class="btn btn-dark">Delete</button>
                     </form>
+                    <%}%>
                 </div>
             </div>
         <% } %>
     </div>
+</div>
 </div>

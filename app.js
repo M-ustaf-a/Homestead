@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 8080;
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -46,18 +46,9 @@ const sessionOptions = {
   }
 };
 
-app.get("/", (req,res)=>{
-  res.send("Hi, I am root");
-})
-
 app.use(session(sessionOptions));
 app.use(flash());
 
-app.use((req,res,next)=>{
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
-});
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -65,14 +56,16 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// app.get("/demouser", async(req,res)=>{
-//   let fakeUser = new User({
-//     email: "mustafaalikhan757@gmail.com",
-//     username: "mustafa",
-//   });
-//   const registeruser = await User.register(fakeUser, "helloworld");
-//   res.send(registeruser);
-// })
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
+  next();
+});
+
+app.get("/", (req, res) => {
+  res.send("Hi, I am root");
+});
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
