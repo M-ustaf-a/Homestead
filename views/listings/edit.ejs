@@ -3,7 +3,7 @@
   <div class="col-8 offset-2">
     <div class="m-4">
     <h1>Edit the Listing</h1>
-    <form method="post" action="/listings/<%=listing._id%>?_method=put">
+    <form method="post" action="/listings/<%=listing._id%>?_method=put" enctype="multipart/form-data">
         <div class="row"></div>
         <div>
             <label for="title" class="form-lagel">Title</label>
@@ -17,18 +17,18 @@
             <label for="price" class="form-lagel" >Price</label>
             <input name="listing[price]" type="number" placeholder="enter the price" class="form-control" value="<%=listing.price %>"><br><br>
         </div>
-        <div>
-            <label for="image" class="form-lagel" >Image</label>
-            <input name="listing[image]" type="text" placeholder="Add Image" class="form-control" value="<%=listing.image %>"><br><br>
+        <div class="mb-3">
+          original Listing Image <br>
+          <img src="<%=originalImageUrl%>" alt="">
         </div>
-        <!-- <div class="mb-3">
+        <div class="mb-3">
             <label for="image" class="form-label">Upload Image</label>
             <input
               name="listing[image]"
               type="file"
               class="form-control"
             />
-          </div> -->
+          </div>
         
         <div class="row">
         <div class="col-md-4">

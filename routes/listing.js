@@ -28,7 +28,7 @@ router.get(
 router.route("/:id")
 .get(WrapAsync(listingControllers.showListing))
 .delete(isLoggedIn,isOwner,WrapAsync(listingControllers.destroyListing))
-.put(validateListing, isLoggedIn, isOwner,WrapAsync(listingControllers.updateListing))
+.put( isLoggedIn, isOwner,upload.single("listing[image]"),validateListing,WrapAsync(listingControllers.updateListing))
 
 
 module.exports = router;

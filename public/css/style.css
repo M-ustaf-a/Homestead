@@ -57,11 +57,28 @@ body{
     margin-bottom: 2rem;
 }
 
+/* media queries */
+
+@media (max-width: 575.98px) {
+.show-card{
+    border-radius: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.card-img-top{
+    border-radius: none !important;
+    width: 100% !important;
+    height: 350px !important;
+    object-fit: cover !important;
+}
+}
+
 .card-img-top{
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
+
 
 .card-body{
     padding: 0 !important;
@@ -97,4 +114,17 @@ body{
 .logout-link{
     border: #222222 !important;
     border-radius: 25px !important;
+}
+
+/* Map */
+@media (max-width: 575.98px) {
+    #map{
+        height: 250px !important;
+        width: 55.5vh !important;
+    }
+}
+
+#map{
+    height: 400px;
+    width: 118vh;
 }
