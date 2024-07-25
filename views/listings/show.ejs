@@ -7,6 +7,13 @@
         console.log('Mapbox Token:', mapToken);
         console.log('Coordinates:', coordinates);
     </script>
+    <style>
+        @media (max-width: 575.98px) {
+            .del-btn{
+                margin-left: 25rem !important;
+            }
+        }
+    </style>
     <div class="container" style="margin: 0px; padding: 0px;">
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -39,7 +46,7 @@
                 </div>
                 <hr>
                 <div class="d-flex mt-2">
-                    <button type="button" class="border btn btn-light text-uppercase" style="border-radius: 25px; margin-left: 10px;"><%= listing.owner.username[0] %></button>
+                    <button class="border text-uppercase btn btn-light" style=" margin-left: 10px; border-radius: 25px;"><%= listing.owner.username[0] %></button>
                     <div class="ms-3">
                         <p class="mb-0" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: large;">Hosted by <%= listing.owner.username %></p>
                         <p class="mb-0" style="font-size: small;"><%= listing.location %>, <%= listing.country %></p>
@@ -51,6 +58,8 @@
             </div>
         </div>
     
+       
+        
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <h4>Leave a review</h4>
@@ -60,15 +69,15 @@
                         <label for="rating" class="form-label">Rating</label>
                         <fieldset class="starability-coinFlip">
                             <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                            <label for="first-rate1" title="Terrible">1 star</label>
-                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                            <input type="radio" id="first-rate1" name="review[rating]" value="1"/>
+                            <label for="first-rate1" title="Terrible" class="star">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[rating]" value="2"/>
                             <label for="first-rate2" title="Not good">2 stars</label>
-                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                            <input type="radio" id="first-rate3" name="review[rating]" value="3"/>
                             <label for="first-rate3" title="Average">3 stars</label>
-                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                            <input type="radio" id="first-rate4" name="review[rating]" value="4"/>
                             <label for="first-rate4" title="Very good">4 stars</label>
-                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                            <input type="radio" id="first-rate5" name="review[rating]" value="5"/>
                             <label for="first-rate5" title="Amazing">5 stars</label>
                         </fieldset>
                     </div>
@@ -88,16 +97,19 @@
                 <div class="row">
                     <p><b>All Reviews</b></p>
                     <% for (review of listing.reviews) { %>
+                        <% if (currUser && currUser._id.equals(review.author._id)) { %>
+                            <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=delete" method="post" style="border: none; border-radius: 25px;">
+                                <button class="btn btn-light del-btn" style="margin-left: 50rem;"><img src="/icons/trash3.svg" alt="settings"></button> 
+                             </form>
+                        <% } %>
                     <div class="review-card col-12 mb-3">
                         <div class="card-body listing-card">
-                            <h5 class="card-title">@<%= review.author.username %></h5>
-                            <p class="card-text"><%= review.comment %></p>
-                            <p class="starability-result" data-rating=<%= review.rating %>></p>
-                            <% if (currUser && currUser._id.equals(review.author._id)) { %>
-                            <!-- <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=delete" method="post">
-                                <button class="btn btn-dark">Delete</button>
-                            </form> -->
-                            <% } %>
+                            <div style="display: flex;">
+                                <button type="button" class="border btn btn-light text-uppercase" style="border-radius: 25px"><%= review.author.username[0] %></button>
+                                <h5 class="card-title" style="margin-left: 10px;"><%= review.author.username %></h5>
+                            </div>
+                            <p class="starability-result" style="margin-left: 2.3rem;" data-rating=<%= review.rating %>></p>
+                            <p class="card-text" style="margin-left: 45px;"><%= review.comment %></p>
                             <hr>
                         </div>
                     </div>

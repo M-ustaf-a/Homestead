@@ -1,13 +1,13 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<!-- <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><img src="https://cdn-icons-png.flaticon.com/128/7006/7006898.png" alt="" style="height: 60px; width: 65px; margin-left: 60px;"></a>
+    <a class="navbar-brand" href="/listings"><img src="https://cdn-icons-png.flaticon.com/128/7006/7006898.png" alt="logo" style="height: 60px; width: 65px; margin-left: 20rem;"></a>
     <style>
       @media (max-width: 575.98px) {
          .search{
            display: none !important;
          }
-
       }
+    
       .search-btn {
         background-color: #fe424d;
         color: #fff;
@@ -24,11 +24,13 @@
         font-size: 0.8rem;
       }
     </style>
-    <form class="d-flex search" role="search" style="margin-left: 25%;">
-      <input class="form-control me-2 search-input" type="search" placeholder="Search destinations">
-      <button class="btn search-btn" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
+    <form class="d-flex search" role="search">
+      <div style="display: flex; margin-left: 12rem;">
+        <input class="form-control me-2 search-input" type="search" placeholder="Search destinations">
+        <button class="btn search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
     </form>
     <button
       class="navbar-toggler"
@@ -45,7 +47,7 @@
       <div class="navbar-nav ms-auto">
         <%if(currUser){%> 
           <a href="/listings/new">
-            <button class="btn btn-light" style="margin-right: 25px; border-radius: 25px;">Create</button>
+            <button class="btn btn-light" style="margin-right: 0.5rem; border-radius: 25px;">Create</button>
           </a>
         <%}%>
         <% if (!currUser) { %>
@@ -64,7 +66,7 @@
             class="border btn btn-outline-dark text-uppercase"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            style="border-radius: 25px; margin-right: 150px; font-weight: bold;"
+            style="border-radius: 25px; margin-right: 20rem; font-weight: bold;"
           >
            
             <%=currUser.username[0]%>
@@ -93,7 +95,141 @@
     </div>
   </div>
 </nav>
+    -->
 
-  
-
-   
+    <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/listings">
+          <img src="https://cdn-icons-png.flaticon.com/128/7006/7006898.png" alt="logo" class="logo-img">
+        </a>
+        <style>
+          @media (max-width: 575.98px) {
+            .search {
+              display: none !important;
+            }
+            .logo-img {
+              margin-left: 0;
+            }
+          }
+          
+          @media (min-width: 576px) {
+            .logo-img {
+              margin-left: 20rem;
+            }
+          }
+          
+          .search-btn {
+            background-color: #fe424d;
+            color: #fff;
+            border-radius: 25px;
+            padding: 0 1rem;
+          }
+          .search-btn:hover {
+            background-color: #fe424d;
+            color: #fff;
+          }
+          .search-input {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.8rem;
+          }
+        </style>
+        <form class="d-flex search" role="search">
+          <div class="search-container">
+            <input class="form-control me-2 search-input" type="search" placeholder="Search destinations">
+            <button class="btn search-btn" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </form>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav"></div>
+          <div class="navbar-nav ms-auto">
+            <% if(currUser) { %> 
+              <a href="/listings/new">
+                <button class="btn btn-light create-btn">Create</button>
+              </a>
+            <% } %>
+            <% if (!currUser) { %>
+              <div class="btn-group">
+                <a href="/login">
+                  <button class="btn btn-light border login-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3871/3871011.png" alt="login-icon" class="login-icon">
+                    <span class="login-text">Login</span>
+                  </button>
+                </a>
+              </div>
+            <% } else { %>
+              <div class="btn-group">
+                <button type="button" class="border btn btn-light text-uppercase user-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= currUser.username[0] %>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <img src="https://cdn-icons-png.flaticon.com/128/3871/3871011.png" alt="user-icon" class="user-icon">
+                    <div class="dropdown-content">
+                      <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                        <div class="card card-body" style="width: 300px;">
+                          <button class="border"><%= currUser.username[0].toUpperCase() %></button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <style>
+      .logo-img {
+        height: 60px;
+        width: 65px;
+      }
+      
+      .search-container {
+        display: flex;
+        margin-left: 12rem;
+      }
+      .create-btn{
+        border-radius: 25px !important;
+        margin-right: 1rem;
+      }
+      .user-btn{
+        border-radius: 25px !important;
+        color: black;
+      }
+      .user-icon{
+        height: 25px !important;
+        width: 25px !important;
+      }
+      @media (max-width: 575.98px) {
+        .search-container {
+          margin-left: 0;
+        }
+        .login-btn {
+          margin-right: 0;
+        }
+        .user-btn {
+          margin-right: 0;
+        }
+        
+      }
+      
+      @media (min-width: 576px) {
+        .login-btn {
+          margin-right: 150px;
+        }
+        .user-btn {
+          margin-right: 20rem;
+        }
+      }
+    </style>
+    
