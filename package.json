@@ -1,8 +1,5 @@
 {
-  "engines": {
-    "node": "v20.14.0"
-  },
-  "name": "new-folder-(4)",
+  "name": "new-folder-4",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
