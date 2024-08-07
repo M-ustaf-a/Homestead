@@ -1,22 +1,13 @@
 <% layout("/layouts/boilerplate") %>
    <body>
     <div class="mt-3">
-      <!-- <div style="text-align: end; margin-top: 5px;">
-        <a href="/listings/new">
-          <img src="https://cdn-icons-png.flaticon.com/128/1828/1828926.png" alt="" style="height: 40px; width: 40px; border: 1px solid grey;  padding: 5px; justify-content: end; margin: 10px; cursor: pointer;">
-        </a>
-      </div> -->
-        <!-- <h1>All Listings</h1> -->
-        <!-- <form method="get" action="/listings/new">
-            <button>Create new Listing</button>
-        </form> -->
         <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
 
           <% for(listing of allListings){ %>
             <a href="/listings/<%=listing._id%>" class="listing-room">
 
               <div class="card col listing-card">
-                <img src="<%=listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 15rem;">
+                <img src="<%=listing.image.url %>" class="card-img-top" id="card-img" alt="listing_image" style="height: 15rem;">
                   <div class="card-img-overlay"></div>
                   <div class="card-body">
                     <p class="card-text">

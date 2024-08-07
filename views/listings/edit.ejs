@@ -1,48 +1,43 @@
 <% layout("/layouts/boilerplate") %>
-<div class="row">
-  <div class="col-8 offset-2">
-    <div class="m-4">
-    <h1>Edit the Listing</h1>
-    <form method="post" action="/listings/<%=listing._id%>?_method=put" enctype="multipart/form-data">
-        <div class="row"></div>
-        <div>
-            <label for="title" class="form-lagel">Title</label>
-            <input name="listing[title]" type="text" placeholder="enter the title" class="form-control" value="<%=listing.title %>"><br><br>
-        </div>
-        <div>
-            <label for="description" class="form-lagel">Description</label>
-            <textarea name="listing[description]" id="" placeholder="enter the description" class="form-control"><%=listing.description %></textarea><br><br>
-        </div>
-        <div>
-            <label for="price" class="form-lagel" >Price</label>
-            <input name="listing[price]" type="number" placeholder="enter the price" class="form-control" value="<%=listing.price %>"><br><br>
-        </div>
-        <div class="mb-3">
-          original Listing Image <br>
-          <img src="<%=originalImageUrl%>" alt="">
-        </div>
-        <div class="mb-3">
-            <label for="image" class="form-label">Upload Image</label>
-            <input
-              name="listing[image]"
-              type="file"
-              class="form-control"
-            />
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10">
+      <div class="m-4">
+        <h1>Edit</h1>
+        <form method="post" action="/listings/<%=listing._id%>?_method=put" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="listing[title]" type="text" placeholder="Enter the title" class="form-control" value="<%=listing.title %>" required>
           </div>
-        
-        <div class="row">
-        <div class="col-md-4">
-            <label for="location" class="form-lagel">Location</label>
-            <input name="listing[location]" type="text" placeholder="enter the location" class="form-control" value="<%=listing.location %>"><br><br>
-        </div>
-        <div class="col-md-8">
-            <label for="country" class="form-lagel">Country</label>
-            <input name="listing[country]" type="text" placeholder="enter the country" class="form-control" value="<%=listing.country %>"><br><br>
-        </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" placeholder="Enter the description" class="form-control" rows="4" required><%=listing.description %></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input name="listing[price]" type="number" placeholder="Enter the price" class="form-control" value="<%=listing.price %>" required>
+          </div>
+          <div class="mb-3">
+            <label for="originalImage" class="form-label">Original Listing Image</label><br>
+            <img src="<%=originalImageUrl%>" alt="Original Listing Image" class="img-fluid">
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Upload Image</label>
+            <input name="listing[image]" type="file" class="form-control">
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+              <label for="location" class="form-label">Location</label>
+              <input name="listing[location]" type="text" placeholder="Enter the location" class="form-control" value="<%=listing.location %>" required>
+            </div>
+            <div class="col-12 col-md-6 mb-3">
+              <label for="country" class="form-label">Country</label>
+              <input name="listing[country]" type="text" placeholder="Enter the country" class="form-control" value="<%=listing.country %>" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-outline-dark ">Submit</button>
+        </form>
+      </div>
     </div>
-        <button class="btn btn-dark edit-btn">submit</button>
-    </form>
-    </div>
-    </div>
+  </div>
 </div>
-

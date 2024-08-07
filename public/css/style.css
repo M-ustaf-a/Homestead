@@ -120,11 +120,14 @@ body{
 @media (max-width: 575.98px) {
     #map{
         height: 250px !important;
-        width: 54.1vh !important;
+        width: 20.5rem !important;
     }
 }
 
-#map{
-    height: 400px;
-    width: 118vh;
+/* Form page */
+
+@media (max-width: 575.98){
+    #Form{
+        width: 21rem !important;
+    }
 }
